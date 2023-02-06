@@ -10,11 +10,21 @@ x-airflow-common:
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-    AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
+
+    POSTGRES_USER: airflow
+    POSTGRES_PASSWORD: airflow
+    POSTGRES_DB: airflow
+    REDIS_HOST: redis
+    REDIS_PASSWORD: redis
+    AIRFLOW__SCHEDULER__STATSD_ON: 'true'
+    AIRFLOW__SCHEDULER__STATSD_HOST: statsd-exporter
+    AIRFLOW__SCHEDULER__STATSD_PORT: 8125
+    AIRFLOW__SCHEDULER__STATSD_PREFIX: airflow
+    AIRFLOW__CORE__FERNET_KEY: 'pMrhjIcqUNHMYRk_ZOBmMptWR6o1DahCXCKn5lEMpzM:'
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
